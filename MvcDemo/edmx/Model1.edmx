@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="oralModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cust">
+          <Key>
+            <PropertyRef Name="cid" />
+          </Key>
+          <Property Name="cid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cname" Type="varchar" MaxLength="50" />
+          <Property Name="address" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="pid" />
+          </Key>
+          <Property Name="pid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pname" Type="varchar" MaxLength="50" />
+          <Property Name="mrp" Type="numeric" Precision="7" Scale="2" />
+        </EntityType>
+        <EntityType Name="saletrans">
+          <Key>
+            <PropertyRef Name="stid" />
+          </Key>
+          <Property Name="stid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pid" Type="int" />
+          <Property Name="rate" Type="int" />
+          <Property Name="qty" Type="int" />
+          <Property Name="total" Type="int" />
+          <Property Name="cid" Type="int" />
+        </EntityType>
+        <Association Name="FK__saletrans__cid__239E4DCF">
+          <End Role="cust" Type="Self.cust" Multiplicity="0..1" />
+          <End Role="saletrans" Type="Self.saletrans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cust">
+              <PropertyRef Name="cid" />
+            </Principal>
+            <Dependent Role="saletrans">
+              <PropertyRef Name="cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__saletrans__pid__22AA2996">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="saletrans" Type="Self.saletrans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="pid" />
+            </Principal>
+            <Dependent Role="saletrans">
+              <PropertyRef Name="pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="oralModelStoreContainer">
+          <EntitySet Name="cust" EntityType="Self.cust" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="saletrans" EntityType="Self.saletrans" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__saletrans__cid__239E4DCF" Association="Self.FK__saletrans__cid__239E4DCF">
+            <End Role="cust" EntitySet="cust" />
+            <End Role="saletrans" EntitySet="saletrans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__saletrans__pid__22AA2996" Association="Self.FK__saletrans__pid__22AA2996">
+            <End Role="product" EntitySet="product" />
+            <End Role="saletrans" EntitySet="saletrans" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="oralModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cust">
+          <Key>
+            <PropertyRef Name="cid" />
+          </Key>
+          <Property Name="cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="saletrans" Relationship="Self.FK__saletrans__cid__239E4DCF" FromRole="cust" ToRole="saletrans" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="pid" />
+          </Key>
+          <Property Name="pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mrp" Type="Decimal" Precision="7" Scale="2" />
+          <NavigationProperty Name="saletrans" Relationship="Self.FK__saletrans__pid__22AA2996" FromRole="product" ToRole="saletrans" />
+        </EntityType>
+        <EntityType Name="saletran">
+          <Key>
+            <PropertyRef Name="stid" />
+          </Key>
+          <Property Name="stid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pid" Type="Int32" />
+          <Property Name="rate" Type="Int32" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="total" Type="Int32" />
+          <Property Name="cid" Type="Int32" />
+          <NavigationProperty Name="cust" Relationship="Self.FK__saletrans__cid__239E4DCF" FromRole="saletrans" ToRole="cust" />
+          <NavigationProperty Name="product" Relationship="Self.FK__saletrans__pid__22AA2996" FromRole="saletrans" ToRole="product" />
+        </EntityType>
+        <Association Name="FK__saletrans__cid__239E4DCF">
+          <End Role="cust" Type="Self.cust" Multiplicity="0..1" />
+          <End Role="saletrans" Type="Self.saletran" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cust">
+              <PropertyRef Name="cid" />
+            </Principal>
+            <Dependent Role="saletrans">
+              <PropertyRef Name="cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__saletrans__pid__22AA2996">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="saletrans" Type="Self.saletran" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="pid" />
+            </Principal>
+            <Dependent Role="saletrans">
+              <PropertyRef Name="pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="demoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="custs" EntityType="Self.cust" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="saletrans" EntityType="Self.saletran" />
+          <AssociationSet Name="FK__saletrans__cid__239E4DCF" Association="Self.FK__saletrans__cid__239E4DCF">
+            <End Role="cust" EntitySet="custs" />
+            <End Role="saletrans" EntitySet="saletrans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__saletrans__pid__22AA2996" Association="Self.FK__saletrans__pid__22AA2996">
+            <End Role="product" EntitySet="products" />
+            <End Role="saletrans" EntitySet="saletrans" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="oralModelStoreContainer" CdmEntityContainer="demoEntities">
+          <EntitySetMapping Name="custs">
+            <EntityTypeMapping TypeName="oralModel.cust">
+              <MappingFragment StoreEntitySet="cust">
+                <ScalarProperty Name="cid" ColumnName="cid" />
+                <ScalarProperty Name="cname" ColumnName="cname" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="oralModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="pname" ColumnName="pname" />
+                <ScalarProperty Name="mrp" ColumnName="mrp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="saletrans">
+            <EntityTypeMapping TypeName="oralModel.saletran">
+              <MappingFragment StoreEntitySet="saletrans">
+                <ScalarProperty Name="stid" ColumnName="stid" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="cid" ColumnName="cid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

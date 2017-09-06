@@ -1,0 +1,59 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Index</title>
+	<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	<script>
+		$(document).reasssdy(function ()
+		{
+		
+			$("#drp").change(function () {
+				//debugger;
+				$("#st").empty();
+               var cnt = $("#drp").val();
+               $.ajax({
+
+               	type: "POST",
+               	url:"/CS/getdata/",
+               	data: { id: cnt },
+               	datatype: "json",
+               	success: function (data) {
+               		$.each(data, function (key, item) {
+
+               			$("#st").append("<option value='" + item.StateId + "'>" + item.StateName + "</option>");
+
+               		});
+               	}
+               });
+           });
+       });
+	</script>
+</head>
+<body>
+	<p>This is getJSON demo</p>
+	<div class="container">
+		<div class="form-group">
+			
+			<select id="drp" style="width:200px;" class="form-control">
+
+				<option>--select--</option>
+				@foreach (var item in ViewData["CountryList"] as List<MvcDemo.EmployeeDB.Country>)
+				{
+					<option value="@item.CountryId">@item.CountryName</option>
+				}
+			</select>
+			<br />
+           <select id="State" style="width:200px;" class="form-control">
+               <option>select</option>
+           </select>
+		</div>
+	</div>
+</body>
+</html>

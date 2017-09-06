@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7d2217e2c0134062b38d3f920db26280" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="EmployeeDbModel.City" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeDbModel.Country" Width="1.5" PointX="2.5" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeDbModel.Employee" Width="1.5" PointX="5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeDbModel.State" Width="1.5" PointX="4.75" PointY="6.5" IsExpanded="true" />
+        <AssociationConnector Association="EmployeeDbModel.FK__City__StateId__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeDbModel.FK__Employee__CityId__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeDbModel.FK__Employee__Countr__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeDbModel.FK_State_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="EmployeeDbModel.FK__Employee__StateI__5DCAEF64" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

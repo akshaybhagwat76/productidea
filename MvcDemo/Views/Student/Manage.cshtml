@@ -1,0 +1,65 @@
+﻿@model MvcDemo.Db.Student
+@{
+	ViewBag.Title = "Manage";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+	$(document).ready(function ()
+	{
+		debugger;
+		$("#btn-submit").click(function ()
+		{
+		
+		var data = $("#myform").serialize();
+		$.ajax
+	    ({
+	    	type: "POST",
+	    	url:"/Student/Save",
+	    	data: { Student: data },
+	    	success:function (data)
+	    	{
+	    		alert("you are done");
+	    	}
+
+	    })
+		})
+
+	})
+</script>
+<div class="container" style="width:40%;margin-top:2%">
+
+	<form id="myform">
+		@Html.HiddenFor(c => c.StudentId)
+		<tr>
+			<td>@Html.LabelFor(c => c.Name)</td>
+			<td>@Html.TextBoxFor(c => c.Name)</td>
+		</tr>
+		<tr>
+			<td>@Html.LabelFor(c => c.City)</td>
+			<td>@Html.TextBoxFor(c => c.City)</td>
+		</tr>
+		<tr>
+			<td><input type="submit" id="btn-submit" value="Save"></td>
+		</tr>s
+	</form>
+</div>
+@*@using (Html.BeginForm("Save", "Student", FormMethod.Post))
+	{
+
+		@Html.HiddenFor(c=>c.StudentId)
+		<tr>
+			<td>@Html.LabelFor(c => c.Name)</td>
+			<td>@Html.TextBoxFor(c=>c.Name)</td>
+		</tr>
+		<tr>
+			<td>@Html.LabelFor(c => c.City)</td>
+			<td>@Html.TextBoxFor(c => c.City)</td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Save"></td>
+		</tr>
+
+
+
+	}*@
+
